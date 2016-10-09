@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paid: false
+  status: MyString
+  cart_id: 1
+  user_id: 1
+  bill_id: 1
+
+two:
+  paid: false
+  status: MyString
+  cart_id: 1
+  user_id: 1
+  bill_id: 1
