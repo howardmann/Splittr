@@ -13,8 +13,8 @@ User.destroy_all
 Debt.destroy_all
 
 bill = Bill.create(:location => "Sydney", :date=>"01-01-2016")
-laptop = Item.create(:description => "laptop", :price => 20)
-computer = Item.create(:description => "computer", :price => 30)
+laptop = Item.create(:description => "laptop", :price => 20, :quantity => 6)
+computer = Item.create(:description => "computer", :price => 30, :quantity => 4)
 bill.items << laptop << computer
 
 jackDebt = Debt.create
