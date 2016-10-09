@@ -3,4 +3,6 @@ class User < ActiveRecord::Base
   has_many :bills, :through => :debts
 
   validates :mobile, uniqueness: true
+
+  
 end
