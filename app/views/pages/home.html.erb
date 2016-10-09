@@ -1,2 +1,9 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Bill Splittr</h1>
+
+<hr>
+
+<h3><%= link_to 'New Bill', cart_path(@current_cart)%></h3>
+
+<hr>
+
+<h3><%= link_to 'Pay Bill', login_path, method: :get %></h3>

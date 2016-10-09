@@ -25,3 +25,25 @@
  ul li {
    text-align: left;
  }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: gainsboro;
+}
+
+tr.username {
+  padding: 10px;
+  height: 30px;
+}
+
+tr.username.owed {
+  background-color: chartreuse;
+}
+
+tr.username.owing {
+  background-color: hotpink;
+}

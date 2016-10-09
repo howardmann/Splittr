@@ -5,4 +5,12 @@ class Bill < ActiveRecord::Base
   def total
     self.items.reduce(0){|sum,item| sum + item.subtotal}
   end
+
+  def debts_owed
+    self.debts.where(:paid => true)
+  end
+
+  def debts_owing
+    self.debts.where(:paid => false)
+  end
 end

@@ -1,29 +1,94 @@
-<h1>Bill Owed: <%= number_to_currency(@bill.total) %></h1>
+<h1>Bill Summary</h1>
+
 <p><%= "Location: #{@bill.location} | Date: #{@bill.date}" %></p>
 
-<ul>
-<% @ordered_items.each do |item| %>
-  <li>
-    <%= format_items(item) %> |
-    <%= link_to "Reduce", item_reduce_path(:id => item, :bill_id => @bill), method: :post if @authorized_user %>
-  </li>
-<% end %>
-</ul>
+<table>
+  <tr>
+    <th>Qty</th>
+    <th>Item</th>
+    <th>Unit $</th>
+    <th>Total $</th>
+    <th>Own up!</th>
+  </tr>
+  <% @ordered_items.each do |item| %>
+  <tr>
+    <td>x<%= item.quantity %></td>
+    <td><%= item.description.capitalize %></td>
+    <td><%= number_to_currency(item.price) %></td>
+    <td><%= number_to_currency(item.subtotal) %></td>
+    <td>
+      <%= link_to "Click", item_reduce_path(:id => item, :bill_id => @bill), method: :post if @authorized_user %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td colspan="3">
+      <strong>Grand Total</strong>
+    </td>
+    <td>
+      <strong><%= number_to_currency(@bill.total) %></strong>
+    </td>
+    <td></td>
+  </tr>
+</table>
 
-<h3>Users</h3>
-<ul>
-<% @bill.debts.each do |debt| %>
-  <li><%= "#{debt.user.name} | #{debt.user.mobile}" %></li>
+<h2>Let's Settle This</h2>
 
-  <ul>
-    <% debt.items.order('created_at ASC').each do |item| %>
-      <li>
-        <%= format_items(item) %> |
-        <%= link_to 'Add Back', item_add_path(:id => item, :bill_id => @bill), method: :post if @current_user == debt.user %>
-      </li>
-    <% end %>
-  </ul>
+<table>
+  <tr>
+    <th>Qty</th>
+    <th>Item</th>
+    <th>Unit $</th>
+    <th>Total $</th>
+    <th>Undo</th>
+  </tr>
 
+  <% @bill.debts_owed.each do |debt| %>
+  <tr class="username owed">
+    <td colspan="5"><%= format_user(debt) %></td>
+  </tr>
+  <%= render 'debtItem', object: debt %>
+  <tr>
+    <td colspan="3">
+      <strong>Total paid:</strong>
+    </td>
+    <td><%= number_to_currency(@bill.total) %></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <strong>
+        Less own share:</strong>
+    </td>
+    <td>-(<%= number_to_currency(debt.total) %>)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <strong>Total owed:</strong>
+    </td>
+    <td><%= number_to_currency(@bill.total - debt.total) %></td>
+    <td></td>
+  </tr>
+  <% end %>
 
-<% end %>
-</ul>
+  <% @bill.debts_owing.each do |debt| %>
+  <tr class="username"></tr>
+  <tr class="username owing">
+    <td colspan="5"><%= format_user(debt) %></td>
+  </tr>
+  <%= render 'debtItem', object: debt %>
+
+  <tr>
+    <td colspan="3">
+      <strong><%= debt.user.name%> owes <%= @bill.debts_owed.first.user.name %></strong>
+    </td>
+    <td>
+      <strong><%= number_to_currency(debt.total) %></strong>
+    </td>
+    <td></td>
+  </tr>
+
+  <% end %>
+
+</table>

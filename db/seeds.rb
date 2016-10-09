@@ -12,20 +12,35 @@ Item.destroy_all
 User.destroy_all
 Debt.destroy_all
 
-bill = Bill.create(:location => "Sydney", :date=>"01-01-2016")
-laptop = Item.create(:description => "laptop", :price => 20, :quantity => 6)
-computer = Item.create(:description => "computer", :price => 30, :quantity => 4)
-bill.items << laptop << computer
+bill = Bill.create(:location => "Chat Thai", :date=>"10-10-2016")
+snapper = Item.create(:description => "snapper", :price => 20, :quantity => 1)
+larbgai = Item.create(:description => "larb gai", :price => 15, :quantity => 1)
+springroll = Item.create(:description => "spring roll", :price => 4, :quantity => 3)
+curry = Item.create(:description => "massaman curry", :price => 18, :quantity => 1)
+beer = Item.create(:description => "beer", :price => 5.50, :quantity => 8)
+rice = Item.create(:description => "rice", :price => 3, :quantity => 4)
 
-jackDebt = Debt.create
-jackUser = User.create(:name => "jack", :mobile => 1234)
+bill.items << snapper << larbgai << springroll << curry << beer << rice
+
+jackDebt = Debt.create(:paid => true)
+jackUser = User.create(:name => "Jack", :mobile => '0413038990')
 bill.debts << jackDebt
 jackUser.debts << jackDebt
 
 janeDebt = Debt.create
-janeUser = User.create(:name => "jane", :mobile => 4321)
+janeUser = User.create(:name => "Jane", :mobile => '0429309228')
 bill.debts << janeDebt
 janeUser.debts << janeDebt
+
+hollyDebt = Debt.create
+hollyUser = User.create(:name => "Holly", :mobile => '0423829110')
+bill.debts << hollyDebt
+hollyUser.debts << hollyDebt
+
+howieDebt = Debt.create
+howieUser = User.create(:name => "Howie", :mobile => '0412038990')
+bill.debts << howieDebt
+howieUser.debts << howieDebt
 
 
 
