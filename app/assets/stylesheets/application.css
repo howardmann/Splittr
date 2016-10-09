@@ -14,11 +14,12 @@
  *= require_self
  */
 
-body {
+html, body {
   overflow-x: hidden;
   margin: 0;
   box-sizing: border-box;
   padding-top: 5px;
+  max-width: 100%;
 }
  #app {
    border: 2px solid black;
