@@ -1,14 +1,29 @@
-<h1>Bill: <%= number_to_currency(@bill.total) %></h1>
+<h1>Bill Owed: <%= number_to_currency(@bill.total) %></h1>
 <p><%= "Location: #{@bill.location} | Date: #{@bill.date}" %></p>
 
 <ul>
-<% @bill.items.each do |item| %>
-  <li><%= format_items(item) %></li>
+<% @ordered_items.each do |item| %>
+  <li>
+    <%= format_items(item) %> |
+    <%= link_to "Reduce", item_reduce_path(:id => item, :bill_id => @bill), method: :post if @authorized_user %>
+  </li>
 <% end %>
 </ul>
 
+<h3>Users</h3>
 <ul>
 <% @bill.debts.each do |debt| %>
-  <li><%= debt.user.name %></li>
+  <li><%= "#{debt.user.name} | #{debt.user.mobile}" %></li>
+
+  <ul>
+    <% debt.items.order('created_at ASC').each do |item| %>
+      <li>
+        <%= format_items(item) %> |
+        <%= link_to 'Add Back', item_add_path(:id => item, :bill_id => @bill), method: :post if @current_user == debt.user %>
+      </li>
+    <% end %>
+  </ul>
+
+
 <% end %>
 </ul>

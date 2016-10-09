@@ -2,6 +2,9 @@
 
 <ul>
 <% @user.bills.each do |bill| %>
-  <li><%= "Location: #{bill.location} | Date: #{bill.date}" %></li>
+  <li>
+    <%= "Location: #{bill.location} | Date: #{bill.date}" %> |
+    <%= link_to 'Show', bill_path(bill) %>
+  </li>
 <% end  %>
 </ul>

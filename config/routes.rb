@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   delete '/logout' => 'user_session#destroy', :as => 'logout'
 
   # Custom item methods
-  post 'items/:id/:add' => 'items#add', as: 'item_add'
-  post 'items/:id/:reduce' => 'items#reduce', as: 'item_reduce'
+  post 'items/:id/add' => 'items#add', as: 'item_add'
+  post 'items/:id/reduce' => 'items#reduce', as: 'item_reduce'
 
   post 'items' => 'items#create'
   get 'items/:id' => 'items#show', as: 'item'
