@@ -1,0 +1,14 @@
+<h1>Bill: <%= number_to_currency(@bill.total) %></h1>
+<p><%= "Location: #{@bill.location} | Date: #{@bill.date}" %></p>
+
+<ul>
+<% @bill.items.each do |item| %>
+  <li><%= format_items(item) %></li>
+<% end %>
+</ul>
+
+<ul>
+<% @bill.debts.each do |debt| %>
+  <li><%= debt.user.name %></li>
+<% end %>
+</ul>

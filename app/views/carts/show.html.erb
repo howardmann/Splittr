@@ -1,0 +1,46 @@
+<h1>Cart</h1>
+
+<h3>Add items to cart: </h3>
+
+<%= form_for @item do |f| %>
+  <p>
+    <%= f.text_field :description, placeholder: 'Description', required: true, autofocus: true  %>
+    <%= f.text_field :price, placeholder: 'Price $', size: 8, required: true %>
+    <%= f.number_field :quantity, placeholder: 'Quantity', min: 0, max:99 %>
+    <%= f.submit 'Add Item' %>
+  </p>
+<% end %>
+
+<ul>
+  <% @current_cart.items.each do |item| %>
+    <li>
+      <%= format_items(item) %>
+      <%= link_to 'Remove', item_path(item), method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<p><strong>Total: <%= number_to_currency(@current_cart.total) %></strong></p>
+
+<hr>
+
+<h3>Add users to cart: </h3>
+
+<%= form_for @user do |f| %>
+  <p>
+    <%= f.text_field :name, placeholder: 'User name', required: true %>
+    <%= f.text_field :mobile, placeholder: 'Mobile', size: 12, required: true %>
+    <%= f.submit 'Add User' %>
+  </p>
+<% end %>
+
+<ul>
+  <% @current_cart.debts.each do |debt| %>
+    <li>
+      <%= "Name: #{debt.user.name} | Mob: #{debt.user.mobile} |" %>
+      <%= link_to 'Remove', debt_path(debt), method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<%= button_to 'New Bill', new_bill_path, method: :get %>

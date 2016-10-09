@@ -1,0 +1,24 @@
+<h1>Create Bill:
+  <%= number_to_currency(@current_cart.total) %>
+</h1>
+
+<%= form_for @bill do |f| %>
+<h3>Where and when?</h3>
+<p>
+  <%= f.text_field :location, placeholder: 'Add Location', required: true %>
+  <%= f.date_field :date, :value => Time.now.strftime('%Y-%m-%d') %>
+</p>
+
+<h3>Who paid the bill?</h3>
+
+<ul>
+  <% @current_cart.debts.each do |debt| %>
+  <li>
+    <%= "#{debt.user.name} | #{debt.user.mobile}" %>
+    <%= radio_button_tag 'debt_id[]', debt.id %>
+  </li>
+  <% end  %>
+</ul>
+
+<%= f.submit %>
+<% end %>

@@ -1,6 +1,25 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
+  resources :debts, :users, :bills
+
+  # Cart session
+  get 'carts/:id' => 'carts#show', as: 'cart'
+  delete 'carts/:id' => 'carts#destroy'
+
+  # User login session
+  get '/login' => 'user_session#new', :as => 'login'
+  post '/login' => 'user_session#create'
+  delete '/logout' => 'user_session#destroy', :as => 'logout'
+
+  # Custom item methods
+  post 'items/:id/:add' => 'items#add', as: 'item_add'
+  post 'items/:id/:reduce' => 'items#reduce', as: 'item_reduce'
+
+  post 'items' => 'items#create'
+  get 'items/:id' => 'items#show', as: 'item'
+  delete 'items/:id' => 'items#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

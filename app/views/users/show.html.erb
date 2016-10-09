@@ -1,0 +1,7 @@
+<h1>User: <%= @user.name %></h1>
+
+<ul>
+<% @user.bills.each do |bill| %>
+  <li><%= "Location: #{bill.location} | Date: #{bill.date}" %></li>
+<% end  %>
+</ul>

@@ -1,0 +1,10 @@
+<h1>All Bills</h1>
+
+<ul>
+<% @bills.each do |bill| %>
+  <li>
+    <%= "Location: #{bill.location} | Date: #{bill.date} | " %>
+    <%= link_to 'Show Bill', bill_path(bill) %>
+  </li>
+<% end  %>
+</ul>
