@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
     @item.cart_id = @current_cart.id
     @item.save
 
-    redirect_to cart_path(@current_cart)
+    render 'carts/create.json.jbuilder'
   end
 
   def destroy
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
       @item.quantity += 1
       @item.save
     else
-      bill_item = debt_item.dup 
+      bill_item = debt_item.dup
       bill_item.id = Item.last.id + 1
       bill_item.quantity = 1
       bill_item.bill = @bill
