@@ -1,10 +1,10 @@
 json.(@cart, :id)
-json.total number_to_currency(@cart.total)
+json.total @cart.total
 
 json.items @cart.items do |item|
   json.id item.id
   json.description item.description
-  json.price number_to_currency(item.price)
+  json.price item.price
   json.quantity item.quantity
-  json.subtotal number_to_currency(item.subtotal)
+  json.subtotal item.subtotal
 end

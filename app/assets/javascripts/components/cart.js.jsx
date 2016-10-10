@@ -26,17 +26,36 @@ class Cart extends React.Component{
       <div>
         <h1>Cart</h1>
         <NewItem updateView={this.updateView.bind(this)}/>
-        <AllItems items={this.state.items} cartTotal={this.state.cartTotal} />
+        <button onClick={this.handleSync.bind(this)}>Click to sync</button>
+        <AllItems items={this.state.items} cartTotal={this.state.cartTotal}/>
       </div>
     )
   }
 
   updateView(property, response){
     let newState = this.state[property].concat(response);
+
+    let newCartTotal = newState.reduce(function(sum,el){
+      return sum += parseInt(el.subtotal);
+    },0).toFixed(2);
+
     this.setState({
+      cartTotal: newCartTotal,
       [property]:newState
     });
   }
+
+  handleSync(){
+    console.log("syncy");
+    let items = this.state.items;
+    $.ajax({
+      url: '/items',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({items})
+    });
+  }
+
 }
 
 // NewItem for posting ajax requests and updating Cart view
@@ -57,19 +76,25 @@ class NewItem extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
+    let id = Math.random()*10000;
     let description = this.refs.description.value;
-    let price = this.refs.price.value;
+    let price = parseInt(this.refs.price.value).toFixed(2);
     let quantity = this.refs.quantity.value;
+    let subtotal = parseInt(price * quantity).toFixed(2);
 
-    $.ajax({
-      url: '/items',
-      type: 'POST',
-      data: {
-        item: {description, price, quantity}
-      }
-    }).done((response)=>{
-      this.props.updateView('items', response);
-    });
+    let item = {id, description, price, quantity, subtotal};
+    this.props.updateView('items', item);
+
+
+    // $.ajax({
+    //   url: '/items',
+    //   type: 'POST',
+    //   data: {
+    //     item: {description, price, quantity}
+    //   }
+    // }).done((response)=>{
+    //   this.props.updateView('items', response);
+    // });
 
   }
 }

@@ -1,8 +1,14 @@
 class ItemsController < ApplicationController
   def create
-    @item = Item.new(item_params)
-    @item.cart_id = @current_cart.id
-    @item.save
+
+    # @item = Item.new(item_params)
+    # @item.cart_id = @current_cart.id
+    # @item.save
+    params[:items].each do |item|
+      @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
+      @item.cart_id = @current_cart.id
+      @item.save
+    end
 
     render 'carts/create.json.jbuilder'
   end
