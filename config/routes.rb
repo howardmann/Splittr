@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # Cart session
   get 'carts/:id' => 'carts#show', as: 'cart'
   delete 'carts/:id' => 'carts#destroy'
+  # Custom Cart API for batch syncing of items, debts and users
+  post 'carts/sync' => 'carts#sync'
 
   # User login session
   get '/login' => 'user_session#new', :as => 'login'

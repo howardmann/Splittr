@@ -1,9 +1,5 @@
 class ItemsController < ApplicationController
   def create
-
-    # @item = Item.new(item_params)
-    # @item.cart_id = @current_cart.id
-    # @item.save
     @current_cart.items.destroy_all
 
     params[:items].each do |item|
