@@ -4,7 +4,8 @@ class Cart extends React.Component{
     super();
     this.state = {
       cartTotal: [],
-      items: []
+      items: [],
+      debts: []
     }
   }
 
@@ -16,7 +17,8 @@ class Cart extends React.Component{
       console.log('Cart fetched /cart/:id');
       this.setState({
         cartTotal: response.total,
-        items: response.items
+        items: response.items,
+        debts: response.debts
       });
     });
   }
@@ -28,35 +30,49 @@ class Cart extends React.Component{
         <NewItem updateAdd={this.updateAdd.bind(this)}/>
         <button onClick={this.handleSync.bind(this)}>Click to sync</button>
         <AllItems items={this.state.items} cartTotal={this.state.cartTotal} updateDelete={this.updateDelete.bind(this)}/>
+
+        <hr/>
+
+        <NewDebt updateAdd={this.updateAdd.bind(this)}/>
+        <AllDebts debts={this.state.debts}
+          updateDelete={this.updateDelete.bind(this)}/>
       </div>
     )
   }
 
   updateAdd(property, response){
-    let newState = this.state[property].concat(response);
-    let newCartTotal = newState.reduce(function(sum,el){
-      return sum += parseInt(el.subtotal);
-    },0).toFixed(2);
+    var newState = this.state[property].concat(response);
 
     this.setState({
-      cartTotal: newCartTotal,
       [property]:newState
     });
+
+    if (property === 'items') {
+      this.updateCartTotal(newState);
+    }
   }
 
-  // Refactor to make dynamic when deleted
-  updateDelete(id){
-    console.log("deleted", id);
-    let newItems = this.state.items.filter((el)=>{
+  updateDelete(property, id){
+    var newState = this.state[property].filter((el)=>{
       return el.id != id;
     });
-    let newCartTotal = newItems.reduce(function(sum,el){
+
+    this.setState({
+      [property]: newState
+    });
+
+    if (property === 'items') {
+      this.updateCartTotal(newState);
+    }
+  }
+
+  updateCartTotal(newState){
+    let newCartTotal = newState.reduce(function(sum,el){
       return sum+= parseInt(el.subtotal);
     },0).toFixed(2);
 
     this.setState({
-      cartTotal: newCartTotal,
-      items: newItems
+      cartTotal: newCartTotal
     });
   }
 
@@ -108,7 +124,7 @@ class AllItems extends React.Component{
   render(){
     var items = this.props.items.map((item) => {
       return (
-        <Item key={item.id} item={item} updateDelete={this.props.updateDelete.bind(this,item.id)}/>
+        <Item key={item.id} item={item} updateDelete={this.props.updateDelete.bind(this,'items',item.id)}/>
       )
     });
 
@@ -155,5 +171,72 @@ class Item extends React.Component{
   }
 }
 
-
 //##################################
+
+// NewDebt for posting ajax requests and updating Cart debt and users view
+class NewDebt extends React.Component{
+  render(){
+    return (
+      <div>
+        <h3>Add users to cart:</h3>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <input ref="name" placeholder="Name" autoFocus='autofocus' required="true" />
+          <input ref="mobile" placeholder="Mobile No." size="8" required="true"/>
+          <input type="submit" value="Add User"/>
+        </form>
+      </div>
+    )
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    let id = Math.random()*10000;
+    let name = this.refs.name.value;
+    let mobile = this.refs.mobile.value;
+    let debt = {id, name, mobile};
+    console.log("NewDebt clicked", name, mobile);
+    this.props.updateAdd('debts', debt);
+  }
+}
+
+// AllDebts receives items json and renders individual debts
+class AllDebts extends React.Component{
+  render(){
+    var debts = this.props.debts.map((debt) => {
+      return (
+        <Debt key={debt.id} debt={debt}
+          updateDelete={this.props.updateDelete.bind(this,'debts',debt.id)}/>
+      )
+    });
+
+    return (
+      <div>
+        <h3>AllDebts:</h3>
+        <table>
+          <tbody>
+          <tr>
+            <th>User</th>
+            <th>Mobile</th>
+            <th>Delete</th>
+          </tr>
+          {debts}
+          </tbody>
+        </table>
+
+      </div>
+    )
+  }
+}
+
+// Debt displays individual debt.user
+class Debt extends React.Component{
+  render(){
+    return (
+      <tr>
+        <td>{this.props.debt.name}</td>
+        <td>{this.props.debt.mobile}</td>
+        <td><button onClick={this.props.updateDelete}>Click</button></td>
+      </tr>
+    )
+  }
+}

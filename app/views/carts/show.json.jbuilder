@@ -8,3 +8,10 @@ json.items @cart.items do |item|
   json.quantity item.quantity
   json.subtotal item.subtotal
 end
+
+json.debts @cart.debts do |debt|
+  json.id debt.id
+  json.user_id debt.user.id
+  json.name debt.user.name
+  json.mobile debt.user.mobile
+end
