@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
     # @item = Item.new(item_params)
     # @item.cart_id = @current_cart.id
     # @item.save
+    @current_cart.items.destroy_all
+
     params[:items].each do |item|
       @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
       @item.cart_id = @current_cart.id

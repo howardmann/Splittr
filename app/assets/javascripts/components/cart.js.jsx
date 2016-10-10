@@ -25,16 +25,15 @@ class Cart extends React.Component{
     return (
       <div>
         <h1>Cart</h1>
-        <NewItem updateView={this.updateView.bind(this)}/>
+        <NewItem updateAdd={this.updateAdd.bind(this)}/>
         <button onClick={this.handleSync.bind(this)}>Click to sync</button>
-        <AllItems items={this.state.items} cartTotal={this.state.cartTotal}/>
+        <AllItems items={this.state.items} cartTotal={this.state.cartTotal} updateDelete={this.updateDelete.bind(this)}/>
       </div>
     )
   }
 
-  updateView(property, response){
+  updateAdd(property, response){
     let newState = this.state[property].concat(response);
-
     let newCartTotal = newState.reduce(function(sum,el){
       return sum += parseInt(el.subtotal);
     },0).toFixed(2);
@@ -45,17 +44,34 @@ class Cart extends React.Component{
     });
   }
 
+  // Refactor to make dynamic when deleted
+  updateDelete(id){
+    console.log("deleted", id);
+    let newItems = this.state.items.filter((el)=>{
+      return el.id != id;
+    });
+    let newCartTotal = newItems.reduce(function(sum,el){
+      return sum+= parseInt(el.subtotal);
+    },0).toFixed(2);
+
+    this.setState({
+      cartTotal: newCartTotal,
+      items: newItems
+    });
+  }
+
   handleSync(){
-    console.log("syncy");
+    console.log("Post request sent");
     let items = this.state.items;
     $.ajax({
       url: '/items',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({items})
+    }).done((response)=>{
+      console.log("Sync success");
     });
   }
-
 }
 
 // NewItem for posting ajax requests and updating Cart view
@@ -83,19 +99,7 @@ class NewItem extends React.Component{
     let subtotal = parseInt(price * quantity).toFixed(2);
 
     let item = {id, description, price, quantity, subtotal};
-    this.props.updateView('items', item);
-
-
-    // $.ajax({
-    //   url: '/items',
-    //   type: 'POST',
-    //   data: {
-    //     item: {description, price, quantity}
-    //   }
-    // }).done((response)=>{
-    //   this.props.updateView('items', response);
-    // });
-
+    this.props.updateAdd('items', item);
   }
 }
 
@@ -104,7 +108,7 @@ class AllItems extends React.Component{
   render(){
     var items = this.props.items.map((item) => {
       return (
-        <Item key={item.id} item={item}/>
+        <Item key={item.id} item={item} updateDelete={this.props.updateDelete.bind(this,item.id)}/>
       )
     });
 
@@ -145,8 +149,11 @@ class Item extends React.Component{
         <td>{this.props.item.description}</td>
         <td>{this.props.item.price}</td>
         <td>{this.props.item.subtotal}</td>
-        <td>Delete</td>
+        <td><button onClick={this.props.updateDelete}>Click</button></td>
       </tr>
     )
   }
 }
+
+
+//##################################
