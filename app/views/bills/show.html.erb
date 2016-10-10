@@ -23,7 +23,7 @@
   <% end %>
   <tr>
     <td colspan="3">
-      <strong>Grand Total</strong>
+      <strong>Total Unclaimed:</strong>
     </td>
     <td>
       <strong><%= number_to_currency(@bill.total) %></strong>
@@ -50,24 +50,16 @@
   <%= render 'debtItem', object: debt %>
   <tr>
     <td colspan="3">
-      <strong>Total paid:</strong>
+      <strong>Own share:</strong>
     </td>
-    <td><%= number_to_currency(@bill.total) %></td>
+    <td><strong><%= number_to_currency(debt.total) %></strong></td>
     <td></td>
   </tr>
   <tr>
     <td colspan="3">
-      <strong>
-        Less own share:</strong>
+      <strong>Still owed:</strong>
     </td>
-    <td>-(<%= number_to_currency(debt.total) %>)</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td colspan="3">
-      <strong>Total owed:</strong>
-    </td>
-    <td><%= number_to_currency(@bill.total - debt.total) %></td>
+    <td><strong><%= number_to_currency(@bill.total) %></strong></td>
     <td></td>
   </tr>
   <% end %>
