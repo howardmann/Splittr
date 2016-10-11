@@ -13,4 +13,8 @@ class Bill < ActiveRecord::Base
   def debts_owing
     self.debts.where(:paid => false)
   end
+
+  def debts_paid_ordered
+    self.debts.order('paid DESC')
+  end
 end

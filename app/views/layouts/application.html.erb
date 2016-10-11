@@ -17,7 +17,7 @@
 </nav>
 <p>
   Session[:cart_id]: [<%= link_to session[:cart_id], cart_path(@current_cart) if @current_cart %>] |
-  Session[:user_id]: [<%= link_to session[:user_id], user_path(@current_user) if @current_user %>]
+  Session[:user_id]: [<%= link_to @current_user.name, user_path(@current_user) if @current_user %>]
 </p>
 
 <div id="app">

@@ -2,33 +2,23 @@ class AllBillItems extends React.Component{
   render(){
     var items = this.props.items.map((item) => {
       return (
-        <BillItem key={item.id} item={item} />
+        <BillItem key={item.id} item={item}
+          updateReduce={this.props.updateReduce.bind(this,'items',item.id)}/>
       )
     });
 
     return (
-      <div>
-        <table>
-          <tbody>
-          <tr>
-            <th>Qty</th>
-            <th>Description</th>
-            <th>Unit $</th>
-            <th>Total $</th>
-            <th>Own up!</th>
-          </tr>
+      <tbody>
+        <tr className="username">
+          <td colSpan="4">AllBillItems</td>
+        </tr>
 
-          {items}
-
-          <tr>
-            <td colSpan="3"><strong>Total unclaimed:</strong></td>
-            <td><strong>{this.props.total}</strong></td>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
-
-      </div>
+        {items}
+        <tr>
+          <td colSpan="3"><strong>Total</strong></td>
+          <td><strong>{this.props.total}</strong></td>
+        </tr>
+      </tbody>
     )
   }
 }
