@@ -1,3 +1,4 @@
+var timer;
 class MainBill extends React.Component {
   constructor(){
     super();
@@ -18,7 +19,6 @@ class MainBill extends React.Component {
       url: `/bills/${this.props.bill}.json`,
       type: 'GET'
     }).done((response)=>{
-      console.log('Bill fetched /bills/:id', response);
       this.setState({
         id: response.id,
         location: response.location,
@@ -36,7 +36,9 @@ class MainBill extends React.Component {
   }
 
   componentDidMount(){
-    let syncTimer = setInterval(()=> {this.fetchServer();},10000);
+    let syncTimer = setInterval(()=> {
+      this.fetchServer();
+    },10000);
     this.setState({syncTimer});
   }
 
@@ -77,7 +79,6 @@ class MainBill extends React.Component {
   }
 
   handleSync(){
-    console.log(this.state);
     var newBillState = this.state;
     $.ajax({
       url: '/bills/sync',
@@ -85,8 +86,13 @@ class MainBill extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({newBillState})
     }).done(()=>{
-      console.log("yep");
+      // resume fetching 
+      console.log("handleSync response");
       this.fetchServer();
+      let syncTimer = setInterval(()=> {
+        this.fetchServer();
+      },10000);
+      this.setState({syncTimer});
     });
   }
 
@@ -191,6 +197,7 @@ class MainBill extends React.Component {
       })
     }
     this.updateBillTotal();
+    this.updateSync();
   }
 
   updateBillTotal(){
@@ -200,5 +207,14 @@ class MainBill extends React.Component {
     this.setState({
       total: parseInt(updateTotal).toFixed(1)
     });
+  }
+
+  // Upon user action pause fetch requests and post sync thereafter. Resume fetching after post
+  updateSync(){
+    clearTimeout(this.state.syncTimer);
+    clearTimeout(timer);
+    timer = window.setTimeout(()=>{
+      this.handleSync();
+    },2000);
   }
 }
