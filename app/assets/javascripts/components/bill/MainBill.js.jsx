@@ -58,7 +58,6 @@ class MainBill extends React.Component {
     return (
       <div>
         <h1>Bill Summary</h1>
-        <button onClick={this.handleSync.bind(this)}>SYNC</button>
         <p>Location: {this.state.location} | Date: {this.state.date}</p>
 
         <table>
@@ -86,7 +85,7 @@ class MainBill extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({newBillState})
     }).done(()=>{
-      // resume fetching 
+      // resume fetching
       console.log("handleSync response");
       this.fetchServer();
       let syncTimer = setInterval(()=> {
