@@ -36,7 +36,7 @@ class MainBill extends React.Component {
   }
 
   componentDidMount(){
-    let syncTimer = setInterval(()=> {this.handleSync();},10000);
+    let syncTimer = setInterval(()=> {this.fetchServer();},10000);
     this.setState({syncTimer});
   }
 
