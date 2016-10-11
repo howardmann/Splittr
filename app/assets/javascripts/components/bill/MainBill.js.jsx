@@ -1,13 +1,3 @@
-var findWithAttr = function(array, attr, value) {
-    for(var i = 0; i < array.length; i += 1) {
-        if(array[i][attr] === value) {
-            return i;
-        }
-    }
-    return -1;
-};
-
-
 class MainBill extends React.Component {
   constructor(){
     super();
@@ -185,35 +175,5 @@ class MainBill extends React.Component {
     this.setState({
       total: parseInt(updateTotal).toFixed(2)
     });
-  }
-}
-
-
-class BillDebt extends React.Component{
-
-  render(){
-    let items = this.props.debt.items.map((item)=>{
-        return (
-          <BillItem key={item.id} item={item}
-            updateReduce={this.props.updateReduce.bind(this,'debts',item.id, this.props.debt.user_id)}/>
-        )
-    });
-
-    let total = this.props.debt.items.reduce((sum,item)=>{
-      return sum += parseInt(item.subtotal);
-    },0);
-
-    return (
-      <tbody>
-        <tr className="username">
-          <td colSpan="4">{this.props.debt.name}</td>
-        </tr>
-        {items}
-        <tr>
-          <td colSpan="3"><strong>Total</strong></td>
-          <td><strong>{total.toFixed(2)}</strong></td>
-        </tr>
-      </tbody>
-    )
   }
 }
