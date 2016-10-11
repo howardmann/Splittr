@@ -35,6 +35,16 @@ class MainBill extends React.Component {
     this.fetchServer();
   }
 
+  componentDidMount(){
+    let syncTimer = setInterval(()=> {this.handleSync();},10000);
+    this.setState({syncTimer});
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.state.syncTimer);
+    console.log('Cleared');
+  }
+
   render(){
     let allDebts = this.state.debts.map((debt)=>{
       return (
@@ -46,6 +56,7 @@ class MainBill extends React.Component {
     return (
       <div>
         <h1>Bill Summary</h1>
+        <button onClick={this.handleSync.bind(this)}>SYNC</button>
         <p>Location: {this.state.location} | Date: {this.state.date}</p>
 
         <table>
@@ -63,6 +74,19 @@ class MainBill extends React.Component {
         </table>
       </div>
     )
+  }
+
+  handleSync(){
+    console.log(this.state);
+    var newBillState = this.state;
+    $.ajax({
+      url: '/bills/sync',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({newBillState})
+    }).done(()=>{
+      console.log("yep");
+    });
   }
 
   // Decrease quantity of item that is clicked on
@@ -88,7 +112,7 @@ class MainBill extends React.Component {
 
     // Reduce item quantity and update subtotal
     item.quantity -= 1;
-    item.subtotal = (item.quantity * parseInt(item.price)).toFixed(2);
+    item.subtotal = (item.quantity * parseInt(item.price)).toFixed(1);
 
     // Delete if quantity falls below 0 and update state
     if (item.quantity === 0){
@@ -135,11 +159,11 @@ class MainBill extends React.Component {
       // If debtItem already exists increment by one, otherwise create a new item for that debt.user and setState
       if (debtItem) {
         debtItem.quantity += 1;
-        debtItem.subtotal = (debtItem.quantity * parseInt(debtItem.price)).toFixed(2);
+        debtItem.subtotal = (debtItem.quantity * parseInt(debtItem.price)).toFixed(1);
       } else {
         let newDebtItem = Object.assign({},item);
         newDebtItem.quantity = 1;
-        newDebtItem.subtotal = (newDebtItem.quantity * parseInt(newDebtItem.price)).toFixed(2);
+        newDebtItem.subtotal = (newDebtItem.quantity * parseInt(newDebtItem.price)).toFixed(1);
         debt.items.push(newDebtItem);
       }
       this.setState({
@@ -153,12 +177,12 @@ class MainBill extends React.Component {
       // If item already exists increment by one, otherwise create a new item for that debt.user and setState
       if (billItem) {
         billItem.quantity += 1;
-        billItem.subtotal = (billItem.quantity * parseInt(billItem.price)).toFixed(2);
+        billItem.subtotal = (billItem.quantity * parseInt(billItem.price)).toFixed(1);
       } else {
         let newItem = Object.assign({},item);
         newItem.quantity = 1;
         newItem.id = Math.random();
-        newItem.subtotal = (newItem.quantity * parseInt(newItem.price)).toFixed(2);
+        newItem.subtotal = (newItem.quantity * parseInt(newItem.price)).toFixed(1);
         this.state.items.push(newItem);
       }
       this.setState({
@@ -173,7 +197,7 @@ class MainBill extends React.Component {
       return sum += parseInt(el.subtotal);
     },0);
     this.setState({
-      total: parseInt(updateTotal).toFixed(2)
+      total: parseInt(updateTotal).toFixed(1)
     });
   }
 }

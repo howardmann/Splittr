@@ -39,8 +39,44 @@ class BillsController < ApplicationController
     redirect_to bill_path(@bill)
   end
 
+  def sync
+
+    @bill = Bill.find(params[:newBillState][:id])
+    @bill.items.destroy_all
+
+    if params[:newBillState][:items]
+      params[:newBillState][:items].each do |item|
+        @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
+        @item.bill_id = @bill.id
+        @item.save
+      end
+    end
+
+    params[:newBillState][:debts].each do |debt|
+      @debt = Debt.find(debt[:id])
+      @debt.items.destroy_all
+
+      if debt[:items]
+        debt[:items].each do |item|
+          @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
+          @item.debt_id = @debt.id
+          @item.save
+        end
+      end
+      @debt.save
+    end
+
+    render 'bills/sync.json.jbuilder'
+  end
+
+
+
   private
     def bill_params
       params.require(:bill).permit(:location, :date)
+    end
+
+    def item_params
+      params.require(:item).permit(:description, :quantity, :price, :bill_id, :cart_id)
     end
 end

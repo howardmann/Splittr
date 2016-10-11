@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  resources :debts, :users, :bills
-
   # Cart session
   get 'carts/:id' => 'carts#show', as: 'cart'
   delete 'carts/:id' => 'carts#destroy'
-  # Custom Cart API for batch syncing of items, debts and users
+  # Custom API's for batch syncing of items, debts and users
   post 'carts/sync' => 'carts#sync'
+  post '/bills/sync' => 'bills#sync'
 
   # User login session
   get '/login' => 'user_session#new', :as => 'login'
@@ -21,6 +20,9 @@ Rails.application.routes.draw do
   post 'items' => 'items#create'
   get 'items/:id' => 'items#show', as: 'item'
   delete 'items/:id' => 'items#destroy'
+
+  resources :debts, :users, :bills
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

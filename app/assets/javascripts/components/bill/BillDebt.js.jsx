@@ -20,7 +20,7 @@ class BillDebt extends React.Component{
         {items}
         <tr>
           <td colSpan="3"><strong>Total</strong></td>
-          <td><strong>{total.toFixed(2)}</strong></td>
+          <td><strong>{total.toFixed(1)}</strong></td>
         </tr>
       </tbody>
     )

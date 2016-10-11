@@ -90,7 +90,7 @@ class MainCart extends React.Component{
   updateCartTotal(property){
     let newCartTotal = this.state[property].reduce(function(sum,el){
       return sum+= parseInt(el.subtotal);
-    },0).toFixed(2);
+    },0).toFixed(1);
 
     this.setState({
       cartTotal: newCartTotal

@@ -1,6 +1,6 @@
 <h1>Check your bills</h1>
 <%= form_tag login_path do %>
   <%= label_tag :mobile %>
-  <%= number_field_tag :mobile, 'please enter', required: true %>
+  <%= text_field_tag :mobile,'', :required => true %>
   <%= submit_tag 'Find bills' %>
 <% end %>

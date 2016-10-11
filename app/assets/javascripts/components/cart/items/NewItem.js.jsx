@@ -18,9 +18,9 @@ class NewItem extends React.Component{
     e.preventDefault();
     let id = Math.random()*10000;
     let description = this.refs.description.value;
-    let price = parseInt(this.refs.price.value).toFixed(2);
+    let price = parseInt(this.refs.price.value).toFixed(1);
     let quantity = this.refs.quantity.value;
-    let subtotal = parseInt(price * quantity).toFixed(2);
+    let subtotal = parseInt(price * quantity).toFixed(1);
 
     let item = {id, description, price, quantity, subtotal};
     this.props.updateAdd('items', item);
