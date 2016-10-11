@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: bills
+#
+#  id         :integer          not null, primary key
+#  location   :string
+#  date       :string
+#  status     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

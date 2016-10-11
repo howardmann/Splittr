@@ -6,7 +6,7 @@ class NewDebt extends React.Component{
         <h3>Add People:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input ref="name" placeholder="Name" required="true" />
-          <input ref="mobile" placeholder="Mobile No." size="14" required="true"/>
+          <input type="tel" ref="mobile" placeholder="Mobile No." size="14" required="true" pattern="^04(\d *){8}$" title="Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)"/>
           <input type="submit" value="Add User"/>
         </form>
       </div>

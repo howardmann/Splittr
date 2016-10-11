@@ -1,6 +1,18 @@
+# == Schema Information
+#
+# Table name: bills
+#
+#  id         :integer          not null, primary key
+#  location   :string
+#  date       :string
+#  status     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Bill < ActiveRecord::Base
-  has_many :debts
-  has_many :items
+  has_many :debts, dependent: :destroy
+  has_many :items, dependent: :destroy
 
   def total
     self.items.reduce(0){|sum,item| sum + item.subtotal}

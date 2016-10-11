@@ -6,8 +6,8 @@ class NewItem extends React.Component{
         <h3>Add Items:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input ref="description" placeholder="Description" autoFocus="autofocus" required="true" />
-          <input ref="price" placeholder="Price $" size="8" required="true"/>
-          <input ref="quantity" type="number" defaultValue="1" min="0" max="99"/>
+          <input type="tel" ref="price" placeholder="Price $" size="8" required="true"/>
+          <input type="tel" ref="quantity" type="number" defaultValue="1" min="0" max="99"/>
           <input type="submit" value="Add Item"/>
         </form>
       </div>

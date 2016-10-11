@@ -44,7 +44,7 @@ howieUser.debts << howieDebt
 
 
 
-puts "User count: #{User.all.length} #{User.all.pluck(:name)}"
+puts "User count: #{User.all.length} #{User.all.pluck(:name)} #{User.all.pluck(:mobile)}"
 puts "Item count: #{Item.all.length} #{Item.all.pluck(:description)}"
 puts "Bill count: #{Bill.all.length} #{Bill.all.pluck(:location)}"
 puts "Debt count: #{Debt.all.length}"

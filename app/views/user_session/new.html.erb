@@ -1,6 +1,6 @@
 <h1>Check your bills</h1>
 <%= form_tag login_path do %>
   <%= label_tag :mobile %>
-  <%= text_field_tag :mobile,'', :required => true %>
+  <%= telephone_field_tag :mobile,'', :required => true, :pattern => "^04(\\d *){8}$", :title => "Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)" %>
   <%= submit_tag 'Find bills' %>
 <% end %>
