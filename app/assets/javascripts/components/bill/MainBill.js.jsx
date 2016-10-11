@@ -86,6 +86,7 @@ class MainBill extends React.Component {
       data: JSON.stringify({newBillState})
     }).done(()=>{
       console.log("yep");
+      this.fetchServer();
     });
   }
 
