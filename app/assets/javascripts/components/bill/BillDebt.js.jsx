@@ -14,7 +14,7 @@ class BillDebt extends React.Component{
 
     return (
       <tbody>
-        <tr className="username">
+        <tr className="username owing">
           <td colSpan="4">{this.props.debt.name}</td>
         </tr>
         {items}

@@ -15,10 +15,10 @@
   <% @current_cart.debts.each do |debt| %>
   <li>
     <%= "#{debt.user.name} | #{debt.user.mobile}" %>
-    <%= radio_button_tag 'debt_id[]', debt.id %>
+    <%= radio_button_tag 'debt_id[]', debt.id, false, required: 'required' %>
   </li>
   <% end  %>
 </ul>
 
-<%= f.submit %>
+<%= f.submit class: "btn" %>
 <% end %>

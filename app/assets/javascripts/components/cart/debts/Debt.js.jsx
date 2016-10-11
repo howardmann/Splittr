@@ -2,10 +2,9 @@
 class Debt extends React.Component{
   render(){
     return (
-      <tr>
+      <tr onClick={this.props.updateDelete}>
         <td>{this.props.debt.name}</td>
         <td>{this.props.debt.mobile}</td>
-        <td><button onClick={this.props.updateDelete}>Click</button></td>
       </tr>
     )
   }

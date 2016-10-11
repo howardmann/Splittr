@@ -35,14 +35,11 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-
+tr {
+  height: 40px;
+}
 tr:nth-child(even) {
   background-color: gainsboro;
-}
-
-tr.username {
-  padding: 10px;
-  height: 30px;
 }
 
 tr.username.owed {
@@ -53,7 +50,7 @@ tr.username.owing {
   background-color: hotpink;
 }
 
-.btn.new-bill {
+.btn {
   background-color: chartreuse;
   padding: 5px;
   margin-top: 30px;
@@ -63,8 +60,16 @@ tr.username.owing {
   font-size: 20px;
   text-decoration: none;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 nav {
   text-align: center;
+}
+
+input {
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  margin: 5px;
 }

@@ -15,7 +15,6 @@ class AllDebts extends React.Component{
           <tr>
             <th>User</th>
             <th>Mobile</th>
-            <th>Delete</th>
           </tr>
           {debts}
           </tbody>

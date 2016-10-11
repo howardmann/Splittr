@@ -16,7 +16,6 @@ class AllItems extends React.Component{
             <th>Description</th>
             <th>Unit $</th>
             <th>Total $</th>
-            <th>Delete</th>
           </tr>
 
           {items}
@@ -24,7 +23,6 @@ class AllItems extends React.Component{
           <tr>
             <td colSpan="3"><strong>GRAND TOTAL:</strong></td>
             <td><strong>{this.props.cartTotal}</strong></td>
-            <td></td>
           </tr>
           </tbody>
         </table>

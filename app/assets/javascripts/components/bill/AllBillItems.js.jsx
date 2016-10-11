@@ -9,7 +9,7 @@ class AllBillItems extends React.Component{
 
     return (
       <tbody>
-        <tr className="username">
+        <tr className="username owed">
           <td colSpan="4">AllBillItems</td>
         </tr>
 
