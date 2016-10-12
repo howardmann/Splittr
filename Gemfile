@@ -52,3 +52,5 @@ group :production do
 end
 
 gem 'react-rails'
+
+gem 'twilio-ruby', '~> 4.11.1'

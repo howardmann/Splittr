@@ -10,6 +10,8 @@
 #
 
 class User < ActiveRecord::Base
+  include Messenger
+
   has_many :debts
   has_many :bills, :through => :debts
 
@@ -17,6 +19,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   before_validation :remove_whitespace
+
+  # Include custom Messenger module which stores Twilio code. Module saved in config/lib folder but lib modules must be also required in config/application.rb
+
 
   private
     def remove_whitespace

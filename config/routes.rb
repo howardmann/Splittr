@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   post 'carts/sync' => 'carts#sync'
   post '/bills/sync' => 'bills#sync'
 
+  # Twilio custom route
+  get '/twilio' => 'twilio#index', :as => 'twilio'
+  post '/twilio/send_text' => 'twilio#send_text'
+
   # User login session
   get '/login' => 'user_session#new', :as => 'login'
   post '/login' => 'user_session#create'
