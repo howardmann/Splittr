@@ -36,6 +36,12 @@ class BillsController < ApplicationController
     # Default login the user whose paid status is true
     session[:user_id] = @debt.user.id
 
+    # Send Twilio SMS to all debts of the bill. Custom send_sms module saved in config/lib/messenger.rb
+    @bill.debts.each do |debt|
+      user = debt.user
+      user.send_sms(user.mobile,user)
+    end
+
     redirect_to bill_path(@bill)
   end
 
