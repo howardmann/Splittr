@@ -15,7 +15,6 @@ class MainCart extends React.Component{
       url: `/carts/${this.props.current_cart}.json`,
       type: 'GET'
     }).done((response)=>{
-      console.log('Cart fetched /cart/:id');
       this.setState({
         cartTotal: response.total,
         items: response.items,
@@ -110,8 +109,6 @@ class MainCart extends React.Component{
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({newCart})
-    }).done(()=>{
-      self.fetchServer();
     });
   }
 
@@ -120,8 +117,8 @@ class MainCart extends React.Component{
     this.handleSync();
     if (this.state.items.length === 0){
       alert("Please add items");
-    } else if (this.state.debts.length < 2){
-      alert("Please add at least 2 people");
+    } else if (this.state.debts.length < 1){
+      alert("Please add at least 1 person");
     } else {
       location.assign('/bills/new');
     }

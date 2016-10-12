@@ -19,7 +19,6 @@ class NewDebt extends React.Component{
     let name = this.refs.name.value;
     let mobile = this.refs.mobile.value;
     let debt = {id, name, mobile};
-    console.log("NewDebt clicked", name, mobile);
     this.props.updateAdd('debts', debt);
 
     // Clear out forms
