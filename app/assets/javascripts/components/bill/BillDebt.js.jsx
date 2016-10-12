@@ -12,14 +12,32 @@ class BillDebt extends React.Component{
       return sum += parseInt(item.subtotal);
     },0);
 
+    let userClass;
+    if (this.props.currentUser === this.props.debt.user_id) {
+      userClass = "current-user";
+    } else {
+      userClass = "user";
+    }
+
+    let paidUser = this.props.paidUser;
+    let paidStatus;
+    let debtTotal;
+    if (this.props.debt.paid) {
+      paidStatus = "Paid";
+      debtTotal = "Total share of bill"
+    } else {
+      paidStatus = "Owes";
+      debtTotal = `${this.props.debt.name} owes ${paidUser}`
+    }
+
     return (
       <tbody>
-        <tr className="username owing">
-          <td colSpan="4">{this.props.debt.name}</td>
+        <tr className={userClass}>
+          <td colSpan="4">{this.props.debt.name} ({this.props.debt.mobile}) - {paidStatus}</td>
         </tr>
         {items}
         <tr>
-          <td colSpan="3"><strong>Total</strong></td>
+          <td colSpan="3"><strong>{debtTotal}</strong></td>
           <td><strong>{total.toFixed(1)}</strong></td>
         </tr>
       </tbody>

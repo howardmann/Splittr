@@ -3,6 +3,7 @@ json.location @bill.location
 json.date @bill.date
 json.total @bill.total
 json.current_user_id @current_user.id
+json.paid_user_name @bill.debts_paid_ordered[0].user.name
 
 json.items @bill.items do |item|
   json.id item.id

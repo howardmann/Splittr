@@ -8,6 +8,7 @@ class MainBill extends React.Component {
       date: "",
       total: "",
       current_user_id: "",
+      paid_user_name: "",
       items: [],
       debts: []
     }
@@ -25,6 +26,7 @@ class MainBill extends React.Component {
         date: response.date,
         total: response.total,
         current_user_id: response.current_user_id,
+        paid_user_name: response.paid_user_name,
         items: response.items,
         debts: response.debts
       });
@@ -50,7 +52,8 @@ class MainBill extends React.Component {
   render(){
     let allDebts = this.state.debts.map((debt)=>{
       return (
-        <BillDebt key= {debt.id} debt={debt}
+        <BillDebt key= {debt.id} debt={debt}  currentUser={this.state.current_user_id}
+          paidUser = {this.state.paid_user_name}
           updateReduce={this.updateReduce.bind(this)}/>
       )
     });

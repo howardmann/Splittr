@@ -42,11 +42,16 @@ tr:nth-child(even) {
   background-color: gainsboro;
 }
 
-tr.username.owed {
+tr.current-user {
   background-color: chartreuse;
 }
 
-tr.username.owing {
+tr.user {
+  background-color: lightslategrey;
+  color: white;
+}
+
+tr.bill-items {
   background-color: hotpink;
 }
 
