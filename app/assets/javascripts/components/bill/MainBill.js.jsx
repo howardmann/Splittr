@@ -90,7 +90,6 @@ class MainBill extends React.Component {
     }).done(()=>{
       // resume fetching
       console.log("handleSync response");
-      this.fetchServer();
       let syncTimer = setInterval(()=> {
         this.fetchServer();
       },10000);
@@ -213,6 +212,7 @@ class MainBill extends React.Component {
 
   // Upon user action pause fetch requests and post sync thereafter. Resume fetching after post
   updateSync(){
+    console.log('updatSync');
     clearTimeout(this.state.syncTimer);
     clearTimeout(timer);
     timer = window.setTimeout(()=>{
