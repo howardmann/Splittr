@@ -32,7 +32,7 @@ var checkStatic = function(){
       e.preventDefault();
     });
   }
-}
+};
 
 // ATM decimal solution attributed to Anders Holmström via jsfiddle http://jsfiddle.net/77bMx/86/
 var input = ""; //holds current input as a string
@@ -44,7 +44,7 @@ var getKeyValue = function(keyCode) {
   if(keyCode >= 48 && keyCode <= 57) {
       return String.fromCharCode(keyCode);
   }
-}
+};
 
 var formatNumber= function(input) {
   if(isNaN(parseFloat(input))) {
@@ -52,19 +52,6 @@ var formatNumber= function(input) {
   }
   var num = parseFloat(input);
   return (num / 100).toFixed(2); //move the decimal up to places return a X.00 format
-}
-
-// JavaScript prevent empty input values of form submitting
-var checkRequired = function(){
-  console.log("check");
-  var $inputArr = $('form').find('.required');
-  for (let i = 0; i < $inputArr.length; i++){
-    var inputVal = $inputArr.eq(0).val();
-    if (inpuVal.length < 2) {
-      return false;
-    }
-  }
-  return true;
 };
 
 $(document).ready(function(){
