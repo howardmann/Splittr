@@ -8,7 +8,7 @@
   <% @user.bills.order('date DESC').each do |bill| %>
   <div class="card">
     <a href=<%= "/bills/#{bill.id}" %>>
-        <div class="col sm-col-12">
+        <div class="col sm-col-12 col-6 offset-3">
           <h4>
             <%= "#{bill.date.to_date.strftime('%b %d, %y')} - #{bill.location} with " %><%= pluralize(bill.debts.length,'person') %>
           </h4>
@@ -19,7 +19,7 @@
   <% end %>
 
   <div class="row">
-    <div class="col sm-col-12 right">
+    <div class="col sm-col-12 center">
       <h4><%= link_to 'Logout', logout_path, method: :delete if @current_user %></h4>
     </div>
   </div>

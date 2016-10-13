@@ -3,6 +3,12 @@ class NewItem extends React.Component {
   render() {
     return (
       <div>
+        <div className="row">
+          <div className="col col-12 center">
+            <h3>Add items</h3>
+          </div>
+        </div>
+
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="row">
             <div className="col sm-col-12 col-8 offset-2">
