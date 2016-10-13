@@ -8,3 +8,5 @@
   </li>
 <% end  %>
 </ul>
+
+<%= link_to 'Logout', logout_path, method: :delete if @current_user %>
