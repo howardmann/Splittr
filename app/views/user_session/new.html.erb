@@ -1,7 +1,7 @@
 <div class="static">
   <h1>Enter Mobile</h1>
-  <%= form_tag login_path do %>
-    <%= telephone_field_tag :mobile,'', :required => true, :pattern => "^04(\\d *){8}$", :title => "Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)" %>
+  <%= form_tag login_path, :class => 'search-form' do %>
+    <%= telephone_field_tag :mobile,'', :required => true, :pattern => "^04(\\d *){8}$", :title => "Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)", :class => "search" %>
     <p>
       <%= submit_tag 'Find bills' %>
     </p>

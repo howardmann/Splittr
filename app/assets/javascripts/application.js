@@ -81,4 +81,16 @@ $(document).ready(function(){
     // Prevent all other keys
     return false;
   });
+
+  $(".search-form").on('submit', function(){
+    var mobile = $('.search').val();
+    var result = /^04(\d *){8}$/.test(mobile);
+
+    if (!result) {
+      alert('Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)');
+      return false;
+    } else {
+      return true;
+    }
+  });
 });
