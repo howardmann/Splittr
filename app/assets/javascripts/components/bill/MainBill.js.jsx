@@ -59,23 +59,29 @@ class MainBill extends React.Component {
     });
 
     return (
-      <div>
-        <h1>Bill Summary</h1>
-        <p>Location: {this.state.location} | Date: {this.state.date}</p>
+      <div className="container">
+        <div className="row">
+          <div className="col col-12 center">
+            <h3>Your bill at {this.state.location} on {this.state.date}</h3>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col sm-col-12 col-8 offset-2 center">
+            <table>
+              <tbody>
+              <tr>
+                <th>Qty</th>
+                <th>Description</th>
+                <th>Unit $</th>
+                <th>Total $</th>
+              </tr>
+              </tbody>
+              <AllBillItems items={this.state.items} total={this.state.total} updateReduce={this.updateReduce.bind(this)}/>
 
-        <table>
-          <tbody>
-          <tr>
-            <th>Qty</th>
-            <th>Description</th>
-            <th>Unit $</th>
-            <th>Total $</th>
-          </tr>
-          </tbody>
-          <AllBillItems items={this.state.items} total={this.state.total} updateReduce={this.updateReduce.bind(this)}/>
-
-          {allDebts}
-        </table>
+              {allDebts}
+            </table>
+          </div>
+        </div>
       </div>
     )
   }

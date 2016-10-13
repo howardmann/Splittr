@@ -42,16 +42,21 @@ class MainCart extends React.Component{
   // Render NewItems/Debts passing in updateAdd state callbacks. Render AllItems/ AllDebts passing in state props and updateDelete callbacks
   render(){
     return (
-      <div>
+      <div className="container">
         <NewItem updateAdd={this.updateAdd.bind(this)}/>
-        <br/>
         <AllItems items={this.state.items} cartTotal={this.state.cartTotal} updateDelete={this.updateDelete.bind(this)}/>
-        <hr/>
+
         <NewDebt updateAdd={this.updateAdd.bind(this)}/>
-        <br/>
+
         <AllDebts debts={this.state.debts}
           updateDelete={this.updateDelete.bind(this)}/>
-        <button className="btn new-bill" onClick={this.navigateBillNew.bind(this)}>New Bill</button>
+
+        <div className="col col-6 offset-3 center">
+          <div className="btn" onClick={this.navigateBillNew.bind(this)}>
+            New Bill
+          </div>
+
+        </div>
       </div>
     )
   }

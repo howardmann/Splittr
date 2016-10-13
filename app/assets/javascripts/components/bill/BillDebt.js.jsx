@@ -36,7 +36,7 @@ class BillDebt extends React.Component{
           <td colSpan="4">{this.props.debt.name} ({this.props.debt.mobile}) - {paidStatus}</td>
         </tr>
         {items}
-        <tr>
+        <tr className="table-total">
           <td colSpan="3"><strong>{debtTotal}</strong></td>
           <td><strong>{total.toFixed(1)}</strong></td>
         </tr>

@@ -14,7 +14,7 @@ class AllBillItems extends React.Component{
         </tr>
 
         {items}
-        <tr>
+        <tr className="table-total">
           <td colSpan="3"><strong>Total</strong></td>
           <td><strong>{this.props.total}</strong></td>
         </tr>

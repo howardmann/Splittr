@@ -1,24 +1,40 @@
-<h1>Create Bill:
-  <%= number_to_currency(@current_cart.total) %>
-</h1>
+<div class="container">
 
-<%= form_for @bill do |f| %>
-<h3>Where and when?</h3>
-<p>
-  <%= f.text_field :location, placeholder: 'Add Location', required: true %>
-  <%= f.date_field :date, :value => Time.now.strftime('%Y-%m-%d') %>
-</p>
+  <div class="row">
+    <div class="col col-12 center">
+      <h3>Bill total:
+        <%= number_to_currency(@current_cart.total) %></h3>
+    </div>
+  </div>
 
-<h3>Who paid the bill?</h3>
+  <%= form_for @bill do |f| %>
+  <div class="row">
+    <div class="col col-7">
+      <%= f.text_field :location, placeholder: 'Add Location', required: true %>
+    </div>
+    <div class="col col-5">
+      <%= f.date_field :date, :value => Time.now.strftime('%Y-%m-%d') %>
 
-<ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12 center">
+      <h3>Who paid?</h3>
+    </div>
+  </div>
+
   <% @current_cart.debts.each do |debt| %>
-  <li>
-    <%= "#{debt.user.name} | #{debt.user.mobile}" %>
-    <%= radio_button_tag 'debt_id[]', debt.id, false, required: 'required' %>
-  </li>
+  <div class="card">
+    <div class="col sm-col-12">
+      <h4>
+        <%= "#{debt.user.name} | #{debt.user.mobile}" %>        
+        <%= radio_button_tag 'debt_id[]', debt.id, false, required: 'required', :class => "radio_button" %>
+      </h4>
+    </div>
+  </div>
   <% end  %>
-</ul>
 
-<%= f.submit class: "btn" %>
-<% end %>
+  <%= f.submit class: "btn" %>
+  <% end %>
+</div>

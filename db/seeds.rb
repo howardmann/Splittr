@@ -12,7 +12,7 @@ Item.destroy_all
 User.destroy_all
 Debt.destroy_all
 
-bill = Bill.create(:location => "Chat Thai", :date=>"10-10-2016")
+bill = Bill.create(:location => "Chat Thai", :date=>"2016-10-10")
 snapper = Item.create(:description => "snapper", :price => 20, :quantity => 1)
 larbgai = Item.create(:description => "larb gai", :price => 15, :quantity => 1)
 springroll = Item.create(:description => "spring roll", :price => 4, :quantity => 3)

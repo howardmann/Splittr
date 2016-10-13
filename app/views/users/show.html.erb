@@ -1,12 +1,27 @@
-<h1>User: <%= @user.name %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col col-12 center">
+      <h3><%= "#{@current_user.name}'s Bills" %></h3>
+    </div>
+  </div>
 
-<ul>
-<% @user.bills.each do |bill| %>
-  <li>
-    <%= "Location: #{bill.location} | Date: #{bill.date}" %> |
-    <%= link_to 'Show', bill_path(bill) %>
-  </li>
-<% end  %>
-</ul>
+  <% @user.bills.order('date DESC').each do |bill| %>
+  <div class="card">
+    <a href=<%= "/bills/#{bill.id}" %>>
+        <div class="col sm-col-12">
+          <h4>
+            <%= "#{bill.date.to_date.strftime('%b %d, %y')} - #{bill.location} with " %><%= pluralize(bill.debts.length,'person') %>
+          </h4>
+        </div>
+    </a>
+  </div>
 
-<%= link_to 'Logout', logout_path, method: :delete if @current_user %>
+  <% end %>
+
+  <div class="row">
+    <div class="col sm-col-12 right">
+      <h4><%= link_to 'Logout', logout_path, method: :delete if @current_user %></h4>
+    </div>
+  </div>
+
+</div>

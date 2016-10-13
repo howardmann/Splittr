@@ -1,9 +1,19 @@
-<div class="static">
-  <h1>Enter Mobile</h1>
-  <%= form_tag login_path, :class => 'search-form' do %>
-    <%= telephone_field_tag :mobile,'', :required => true, :pattern => "^04(\\d *){8}$", :title => "Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)", :class => "search" %>
-    <p>
-      <%= submit_tag 'Find bills' %>
-    </p>
+<div class="container">
+
+  <div class="row">
+    <div class="col col-12 center">
+      <h3>Enter your mobile</h3>
+    </div>
+  </div>
+
+  <%= form_tag login_path do %>
+    <div class="row">
+      <div class="col col-6 offset-3 center">
+        <%= telephone_field_tag :mobile,'', :required => true, :pattern => "^04(\\d *){8}$", :title => "Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)", :class => "search" %>
+      </div>
+      <div class="col col-12 center">
+        <%= submit_tag 'Search', :class => 'btn' %>
+      </div>
   <% end %>
+
 </div>
