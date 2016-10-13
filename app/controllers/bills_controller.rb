@@ -9,8 +9,6 @@ class BillsController < ApplicationController
 
   def show
     @bill = Bill.find(params[:id])
-    @authorized_user = true if @bill.debts.pluck(:user_id).include?(@current_user.id)
-    @ordered_items = @bill.items.all.order('created_at ASC')
   end
 
   def create

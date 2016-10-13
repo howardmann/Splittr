@@ -5,9 +5,9 @@ class NewItem extends React.Component{
       <div>
         <h3>Add Items:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <input ref="description" placeholder="Description" autoFocus="autofocus" required="true" />
-          <input type="tel" ref="price" placeholder="Price $" size="8" required="true"/>
-          <input type="tel" ref="quantity" type="number" defaultValue="1" min="0" max="99"/>
+          Price $ <input type="tel" pattern="\d+(\.\d*)?" className="atm" defaultValue="0.00" ref="price" size="8" required="true" autoFocus="autofocus"/>
+        <input ref="description" className="required" placeholder="Description" required="true" />
+          <input type="tel" ref="quantity" defaultValue="1" pattern="^\d+$" title="Enter a valid positive quantity" size="4"/>
           <input type="submit" value="Add Item"/>
         </form>
       </div>
@@ -21,13 +21,18 @@ class NewItem extends React.Component{
     let price = parseInt(this.refs.price.value).toFixed(1);
     let quantity = this.refs.quantity.value;
     let subtotal = parseInt(price * quantity).toFixed(1);
-
     let item = {id, description, price, quantity, subtotal};
+
+    if (description.length < 1) {
+      alert("Please enter a description");
+      return false;
+    }
     this.props.updateAdd('items', item);
 
     // Clear out forms
     this.refs.description.value = "";
-    this.refs.price.value = "";
+    this.refs.price.value = "0.00";
     this.refs.quantity.value = 1;
+    input = ""; // Clear out input varialbe for .atm decimal
   }
 }

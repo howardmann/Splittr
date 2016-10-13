@@ -5,8 +5,8 @@ class NewDebt extends React.Component{
       <div>
         <h3>Add People:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <input ref="name" placeholder="Name" required="true" />
-          <input type="tel" ref="mobile" placeholder="Mobile No." size="14" required="true" pattern="^04(\d *){8}$" title="Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)"/>
+          <input ref="name" placeholder="Name" className="required" required="true" />
+          <input type="tel" ref="mobile" placeholder="Mobile No." className="required" size="14" required="true" pattern="^04(\d *){8}$" title="Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)"/>
           <input type="submit" value="Add User"/>
         </form>
       </div>
@@ -18,7 +18,21 @@ class NewDebt extends React.Component{
     let id = Math.random()*10000;
     let name = this.refs.name.value;
     let mobile = this.refs.mobile.value;
+
+    // Client-side validatons for mobile. Note: HTML5 form required attributes do not work on mobile
     let debt = {id, name, mobile};
+    var result = /^04(\d *){8}$/.test(mobile);
+
+    if (name.length < 1) {
+      alert("Please enter a name");
+      return false;
+    }
+
+    if (!result) {
+      alert('Enter a valid 10 digit Australian mobile starting with 04 (e.g. 0412 345 678)');
+      return false;
+    }
+
     this.props.updateAdd('debts', debt);
 
     // Clear out forms
