@@ -5,10 +5,10 @@ class NewItem extends React.Component{
       <div>
         <h3>Add Items:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          Price $ <input type="tel" pattern="\d+(\.\d*)?" className="atm" defaultValue="0.00" ref="price" size="8" required="true" autoFocus="autofocus"/>
+          $ <input type="tel" pattern="\d+(\.\d*)?" className="atm" defaultValue="0.00" ref="price" size="8" required="true" autoFocus="autofocus"/>
         <input ref="description" className="required" placeholder="Description" required="true" />
           <input type="tel" ref="quantity" defaultValue="1" pattern="^\d+$" title="Enter a valid positive quantity" size="4"/>
-          <input type="submit" value="Add Item"/>
+          <input className="submit-button" type="submit" value="Add Item"/>
         </form>
       </div>
     )

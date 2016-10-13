@@ -43,7 +43,6 @@ class MainCart extends React.Component{
   render(){
     return (
       <div>
-        <h1>Cart</h1>
         <NewItem updateAdd={this.updateAdd.bind(this)}/>
         <br/>
         <AllItems items={this.state.items} cartTotal={this.state.cartTotal} updateDelete={this.updateDelete.bind(this)}/>
