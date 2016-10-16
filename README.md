@@ -1,5 +1,5 @@
 # Splittr
-[Click here to see live Project (hosted on Heroku)](https://bill-splittr.herokuapp.com/) - Best experienced on mobile
+[Click here to see live Project (hosted on Heroku)](https://bill-splittr.herokuapp.com/) (Best experienced on mobile)
 
 ## Description
 A mobile-first bill splitting app with SMS notifications and live loading.
