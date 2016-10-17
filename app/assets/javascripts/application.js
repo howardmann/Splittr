@@ -56,8 +56,6 @@ var formatNumber = function(input) {
 $(document).ready(function() {
   console.log("ready");
 
-
-
   // Prevent mobile scrolling on select pages
   checkStatic();
 

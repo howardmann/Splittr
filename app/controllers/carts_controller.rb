@@ -5,7 +5,6 @@ class CartsController < ApplicationController
 
   # Custom item, debt and user sync API
   def sync
-
     # Clear out old cart. Avoid duplication
     @cart = @current_cart
     @cart.items.destroy_all
@@ -14,9 +13,8 @@ class CartsController < ApplicationController
     # Update all state items and assign to cart. Skip if params empty
     if params[:newCart][:items]
       params[:newCart][:items].each do |item|
-        @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
-        @item.cart_id = @cart.id
-        @item.save
+        @item = Item.create(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
+        @cart.items << @item
       end
     end
 
@@ -37,15 +35,7 @@ class CartsController < ApplicationController
       end
     end
 
-    render 'carts/sync.json.jbuilder'
+    render template: 'carts/show.json.jbuilder'
   end
 
-  private
-    def user_params
-      params.require(:user).permit(:name, :mobile)
-    end
-
-    def item_params
-      params.require(:item).permit(:description, :quantity, :price, :bill_id, :cart_id)
-    end
 end

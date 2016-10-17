@@ -32,6 +32,7 @@ class NewItem extends React.Component {
     )
   }
 
+  // Callback to create new item from refs and pass into callback received from parent which will update state of MainCart component (as function is bound to MainCart component)
   handleSubmit(e) {
     e.preventDefault();
     let id = Math.random() * 10000;

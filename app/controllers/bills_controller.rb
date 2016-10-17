@@ -1,8 +1,4 @@
 class BillsController < ApplicationController
-  def index
-    @bills = Bill.all
-  end
-
   def new
     @bill = Bill.new
   end
@@ -12,8 +8,10 @@ class BillsController < ApplicationController
   end
 
   def create
+    # Instantiate a new bill
     @bill = Bill.new(bill_params)
 
+    # Transfer items and debts from cart to bill, remembering to remove cart id from each debt and item after the transfer
     @current_cart.items.each do |item|
       @bill.items << item
       item.cart_id = nil
@@ -44,18 +42,19 @@ class BillsController < ApplicationController
   end
 
   def sync
-
+    # Find Bill from params sent by ajax post request and clear out all items
     @bill = Bill.find(params[:newBillState][:id])
     @bill.items.destroy_all
 
+    # If ajax post request has any items create new items and append them to the bill
     if params[:newBillState][:items]
       params[:newBillState][:items].each do |item|
-        @item = Item.new(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
-        @item.bill_id = @bill.id
-        @item.save
+        @item = Item.create(:description => item[:description], :price => item[:price], :quantity => item[:quantity])
+        @bill.items << @item
       end
     end
 
+    # Iterate through each debt from the ajax post and initially destroy all items before createing new items and appending to the relevant debt
     params[:newBillState][:debts].each do |debt|
       @debt = Debt.find(debt[:id])
       @debt.items.destroy_all
@@ -70,17 +69,12 @@ class BillsController < ApplicationController
       @debt.save
     end
 
-    render 'bills/sync.json.jbuilder'
+    # Respond with json response per show
+    render template: 'bills/show.json.jbuilder'
   end
-
-
 
   private
     def bill_params
       params.require(:bill).permit(:location, :date)
-    end
-
-    def item_params
-      params.require(:item).permit(:description, :quantity, :price, :bill_id, :cart_id)
     end
 end

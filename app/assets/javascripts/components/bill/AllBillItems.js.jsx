@@ -1,5 +1,6 @@
 class AllBillItems extends React.Component{
   render(){
+    // Iterate through and instantiate new BillItems from items prop received. Pass in each item to the new component
     var items = this.props.items.map((item) => {
       return (
         <BillItem key={item.id} item={item}

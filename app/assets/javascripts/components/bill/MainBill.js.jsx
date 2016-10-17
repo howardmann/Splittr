@@ -1,5 +1,8 @@
+// Declare timer in global scope in order to clear and reset fetch reqests
 var timer;
+
 class MainBill extends React.Component {
+  // Set initial state properties consistent with fetches json data (see below)
   constructor(){
     super();
     this.state = {
@@ -14,7 +17,7 @@ class MainBill extends React.Component {
     }
   }
 
-  // Fetch json data and store in state before rendering components
+  // Fetch json data and store in state before rendering components. Note that component state matches rendered json data frin views/bill/show.show.jbuilder, this is done deliberately to ensure consistency
   fetchServer(){
     $.ajax({
       url: `/bills/${this.props.bill}.json`,
@@ -33,10 +36,12 @@ class MainBill extends React.Component {
     });
   }
 
+  // Before components and divs render call fetchserver and get JSON data
   componentWillMount(){
     this.fetchServer();
   }
 
+  // After rendering call fetchserver across set intervals and set it within the components state
   componentDidMount(){
     let syncTimer = setInterval(()=> {
       this.fetchServer();
@@ -44,12 +49,14 @@ class MainBill extends React.Component {
     this.setState({syncTimer});
   }
 
+  // Clear timer when leaving page
   componentWillUnmount(){
     clearInterval(this.state.syncTimer);
     console.log('Cleared');
   }
 
   render(){
+    // Iterate and instantiate new BillDebt components represents each debt/ user of the bill. We also pass in the paidUser from the state as a prop so each component can then render whether their user paid
     let allDebts = this.state.debts.map((debt)=>{
       return (
         <BillDebt key= {debt.id} debt={debt}  currentUser={this.state.current_user_id}
@@ -58,6 +65,7 @@ class MainBill extends React.Component {
       )
     });
 
+    // Render bill summary details and an AllBillItems passing in the items state array for it to iterate through and render individual items
     return (
       <div className="container">
         <div className="row">
@@ -86,6 +94,7 @@ class MainBill extends React.Component {
     )
   }
 
+  // Function to ajax post the current state of the MainComponent to the Bills controller sync method. This will then batch update the bill from the params sent
   handleSync(){
     var newBillState = this.state;
     $.ajax({
@@ -207,6 +216,7 @@ class MainBill extends React.Component {
     this.updateSync();
   }
 
+  // Callback to update the bill total 
   updateBillTotal(){
     let updateTotal = this.state.items.reduce((sum,el)=>{
       return sum += parseInt(el.subtotal);

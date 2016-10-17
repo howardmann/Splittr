@@ -1,6 +1,7 @@
 class BillDebt extends React.Component{
 
   render(){
+    // Instantiate new BillItem components by iterating and passing through the items prop received. Also pass in updateReduce callback when clicked on
     let items = this.props.debt.items.map((item)=>{
         return (
           <BillItem key={item.id} item={item}
@@ -8,10 +9,12 @@ class BillDebt extends React.Component{
         )
     });
 
+    // Calculate and cache total dollar amount of debt
     let total = this.props.debt.items.reduce((sum,item)=>{
       return sum += parseInt(item.subtotal);
     },0);
 
+    // Determine if debt user is same as current_user and then save class name accordingly
     let userClass;
     if (this.props.currentUser === this.props.debt.user_id) {
       userClass = "current-user";
@@ -19,6 +22,7 @@ class BillDebt extends React.Component{
       userClass = "user";
     }
 
+    // Determine if debt user paid or owes money for the bill
     let paidUser = this.props.paidUser;
     let paidStatus;
     let debtTotal;
