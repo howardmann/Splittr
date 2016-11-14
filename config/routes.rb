@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # User login session
   get '/login' => 'user_session#new', :as => 'login'
   post '/login' => 'user_session#create'
-  delete '/logout' => 'user_session#destroy', :as => 'logout'
+  get '/logout' => 'user_session#destroy', :as => 'logout'
 
   resources :debts, :users, :bills
 
