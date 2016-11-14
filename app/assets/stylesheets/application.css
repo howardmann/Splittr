@@ -214,15 +214,16 @@ nav a {
 }
 #app {
   margin: 60px auto;
+  margin-bottom: 0px;
   width: 100%;
 }
 .home {
   font-family: 'Bungee Inline', cursive;
   font-size: 30px;
-  height: calc(100vh - 30px);
-  height: -o-calc(100vh - 30px); /* opera */
-  height: -webkit-calc(100vh - 30px); /* google, safari */
-  height: -moz-calc(100vh - 30px); /* firefox */
+  height: calc(100vh - 60px);
+  height: -o-calc(100vh - 60px); /* opera */
+  height: -webkit-calc(100vh - 60px); /* google, safari */
+  height: -moz-calc(100vh - 60px); /* firefox */
 }
 .new-bill {
   background: radial-gradient(ellipse at bottom,#4f3e8e,#3e2d7d 80%,#3e2d7d);
@@ -336,10 +337,12 @@ input:focus {
 }
 
 .find-user {
-  height: calc(50vh);
-  height: -o-calc(50vh); /* opera */
-  height: -webkit-calc(50vh); /* google, safari */
-  height: -moz-calc(50vh); /* firefox */
+  padding-top: 10%;
+  height: calc(100vh - 60px);
+  height: -o-calc(100vh - 60px); /* opera */
+  height: -webkit-calc(100vh - 60px); /* google, safari */
+  height: -moz-calc(100vh - 60px); /* firefox */
+
 }
 .search{
   max-width: 180px;

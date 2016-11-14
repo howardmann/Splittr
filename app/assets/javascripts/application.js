@@ -15,7 +15,7 @@
 //= require react
 //= require react_ujs
 //= require components
-//= require_tree .
+//= require_tree ./components
 
 
 // Prevent mobile touch scroll on pages with the class element '.static'. Recreate native app UX

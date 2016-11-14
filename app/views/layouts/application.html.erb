@@ -10,22 +10,25 @@
     <meta name="mobile-web-app-capable" content="yes"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+    <%= favicon_link_tag 'Splittr.png', type: 'image/png' %>
     <%= favicon_link_tag 'Splittr.png', rel: 'apple-touch-icon' %>
   </head>
   <body>
-    <nav>
-      <div class="container">
-        <div class="row">
-          <div class="col col-4">
-            <span class="logo"><%= link_to 'Splittr', root_path %></span>
-          </div>
-          <div class="col col-8 right">
-            <%= link_to 'Login', login_path unless @current_user %>
-            <%= link_to @current_user.name,user_path(@current_user) if @current_user %>
+    <header>
+      <nav>
+        <div class="container">
+          <div class="row">
+            <div class="col col-4">
+              <span class="logo"><%= link_to 'Splittr', root_path %></span>
+            </div>
+            <div class="col col-8 right">
+              <%= link_to 'Login', login_path unless @current_user %>
+              <%= link_to @current_user.name,user_path(@current_user) if @current_user %>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
     <div id="app">
       <%= yield %>
